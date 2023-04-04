@@ -41,8 +41,8 @@ public class memory_sort {
                 }
             }
             System.out.println("Now sorting array: ");
-            for (int i : sort(arr)) {
-                System.out.print(i + ", ");
+            for (int j : sort(arr)) {
+                System.out.print(j + ", ");
             }
             System.out.println("Completed. ");
         }
