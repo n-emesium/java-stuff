@@ -1,10 +1,9 @@
 import java.util.Scanner;
 public class LinkGenerator {
-    private static final Scanner sc = new Scanner(System.in);
     private static String alphdown;
     private static String alphup;
     private static String numbers;
-    public static final String[] domains = {".com",".gov",".org"};
+    private static final String[] domains = {".com",".gov",".org"};
     static {
         alphdown = "";
         for (char c = 'a'; c <= 'z'; c++) {
@@ -35,14 +34,15 @@ public class LinkGenerator {
                     break;
             }
         }
-        return randomized;
+        return "https://" + randomized + domains[(int) (Math.random() * domains.length)];
     }
     public static void main(String[] args) {
+        
         LinkGenerator lg = new LinkGenerator();
         for (int i = 0; i < 10; i++) {
             int len = (int) (Math.random() * 51 + 50);
             System.out.println("Sample web link: ");
-            System.out.println("https://" + lg.generate(len) + LinkGenerator.domains[(int) (Math.random() * 3)]);
+            System.out.println(lg.generate(len));
         }
     }
 }
