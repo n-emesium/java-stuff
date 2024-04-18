@@ -1,4 +1,3 @@
-import java.util.Scanner;
 public class LinkGenerator {
     private static String alphdown;
     private static String alphup;
