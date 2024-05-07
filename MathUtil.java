@@ -1,5 +1,7 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 public class MathUtil {
+    private static ArrayList<Integer> runs = new ArrayList<Integer>();
     private static HashMap<Integer,Long> hash = new HashMap<Integer,Long>();
     public static final double PI = 3.14;
     public static final double EUL = 2.78;
@@ -30,6 +32,9 @@ public class MathUtil {
             result *= n;
         }
         return result;
+    }
+    public static int modulo(int n, int m) {
+        return (n % m);
     }
     public static int absoluteVal(int m) {
         if (m < 0) {
@@ -136,6 +141,12 @@ public class MathUtil {
         }
         return true;
     }
+    public static boolean isMonotonic(int[] arr) {
+        if (sortedDes(arr) || sortedAsc(arr)) {
+            return true;
+        }
+        return false;
+    }
     public static void transposeMatrix(int[][] matrix) {
         if (matrix.length != matrix[0].length) {
             throw new ArithmeticException("Only applicable to square matrixes. ");
@@ -155,6 +166,26 @@ public class MathUtil {
             arr[arr.length - 1 - i] = x;
         }
     }
+    public static void swap(int[] arr, int l, int r) {
+        int x = arr[l];
+        arr[l] = arr[r];
+        arr[r] = x;
+    }
+    public static void swap(String[] arr, int l, int r) {
+        String s = arr[l];
+        arr[l] = arr[r];
+        arr[r] = s;
+    }
+    public static double getSum(int[] arr) {
+        return mean(arr) * arr.length;
+    }
+    public static int getMult(int[] arr) {
+        int x = 1;
+        for (int i = 0; i < arr.length; i++) {
+            x *= arr[i];
+        }
+        return x;
+    }
     public static void shiftArr(int[] arr, int k) {
         int[] copy = new int[arr.length];
         for (int i = 0; i < arr.length; i++) {
@@ -162,6 +193,72 @@ public class MathUtil {
         }
         for (int i = 0; i < arr.length; i++) {
             arr[i] = copy[i];
+        }
+    }
+    public static int Random(int m, int n) { //inclusive [m,l];
+        return (int) (Math.random() * (n - m + 1) + m);
+    }
+    public static int Simulate(int target, int r1, int r2) {
+        int x = 1;
+        int n = Random(r1,r2);
+        while (n != target) {
+            x++;
+            n = Random(r1,r2);
+        }
+        runs.add(x);
+        return x;
+    }
+    public static double runAve() {
+        double sum = 0.0;
+        for (int i = 0; i < runs.size(); i++) {
+            sum += runs.get(i);
+        }
+        return sum / runs.size();
+    }
+    public static void resetRuns() {
+        int x = runs.size() - 1;
+        while (x >= 0) {
+            runs.remove(x);
+            x--;
+        }
+    }
+    public static ArrayList<Integer> getRuns() {
+        return runs;
+    }
+    public static int gcd(int x, int y) {
+        if (x == 0) {
+            return y;
+        } else {
+            return gcd(y % x, y);
+        }
+    }
+    public static int lcm(int x, int y) {
+        return (x * y) / gcd(x,y);
+    }
+    public static int[] factors(int n) {
+        ArrayList<Integer> divisors = new ArrayList<Integer>();
+        for (int i = 1; i <= Math.sqrt(n); i++) {
+            if (n % i == 0) {
+                divisors.add(i);
+                divisors.add(n / i);
+            }
+        }
+        int[] arr = convertArray(divisors);
+        sort(arr);
+        return arr;
+    }
+    private static int[] convertArray(ArrayList<Integer> arr) {
+        int[] clone = new int[arr.size()];
+        for (int i = 0; i < arr.size(); i++) {
+            clone[i] = arr.get(i);
+        }
+        return clone;
+    }
+    public static void timer(double d) {
+        try {
+            Thread.sleep((long)(d * 1000));
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
         }
     }
 }
